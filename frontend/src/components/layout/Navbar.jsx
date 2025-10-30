@@ -59,7 +59,7 @@ const Navbar = () => {
 
           {/* AuthButton && Profile */}
           <div className="hidden lg:flex items-center space-x-3">
-            {!isAuthenticated ? (
+            {isAuthenticated ? (
               <ProfileDropDown
                 isOpen={profileDropdownOpen}
                 onToggle={(e) => {
@@ -116,7 +116,7 @@ const Navbar = () => {
           </nav>
 
           <div className="px-4 py-4 border-t border-gray-100">
-            {!isAuthenticated ? (
+            {isAuthenticated ? (
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 px-2">
                   <div className="h-8 w-8 bg-gradient-to-br from-violet-400 to-violet-500 rounded-xl flex items-center justify-center">
