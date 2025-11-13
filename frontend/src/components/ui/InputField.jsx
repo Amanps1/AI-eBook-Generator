@@ -14,9 +14,7 @@ const InputField = ({
             <Icon className='w-4 h-4 text-gray-400 ' />
           </div>
         }
-        <input id={name} name={name} {...props} className='w-full f-11 px-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ciolet-500 focus:border-transparent transition-all'>
-          Icon ? "pl-10" : "pl-3"
-        </input>
+        <input id={name} name={name} {...props} className={`w-full py-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all ${Icon ? "pl-10" : "pl-3"}`} />
       </div>
     </div>
   )

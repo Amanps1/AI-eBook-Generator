@@ -22,3 +22,5 @@ export const API_PATH = {
         DOC:"/api/export/doc",
     }
 }
+
+export const BASE_URL="http://localhost:5000"
