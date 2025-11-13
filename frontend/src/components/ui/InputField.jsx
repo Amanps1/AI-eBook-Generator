@@ -1,8 +1,24 @@
 import React from 'react'
 
-const InputField = () => {
+const InputField = ({
+  icon:Icon, label, name, ...props 
+}) => {
   return (
-    <div>InputField</div>
+    <div className='space-y-2'>
+      <label htmlFor={name} className='block text-sm font-medium text-gray-700'>
+        {label}
+      </label>
+      <div className='relative'>
+        {Icon &&
+          <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+            <Icon className='w-4 h-4 text-gray-400 ' />
+          </div>
+        }
+        <input id={name} name={name} {...props} className='w-full f-11 px-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-ciolet-500 focus:border-transparent transition-all'>
+          Icon ? "pl-10" : "pl-3"
+        </input>
+      </div>
+    </div>
   )
 }
 
