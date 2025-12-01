@@ -1,9 +1,9 @@
 import React, { Children } from 'react'
 import { Navigate, useLocation } from 'react-router-dom';
 import BeatLoader from "react-spinners/BeatLoader";
+import { useAuth } from '../../context/AuthContext';
 const ProtectRoutes = ({children}) => {
-  const isAuthenticated=false;
-  const loading=false;
+  const { isAuthenticated, loading } = useAuth();
   const location=useLocation();
 
   if(loading){

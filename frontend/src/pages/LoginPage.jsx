@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {Mail, Lock, BookOpen} from 'lucide-react'
-
+import {toast} from 'react-hot-toast'
 import InputField from '../components/ui/InputField'
 import Button from '../components/ui/Button'
 import {useAuth} from '../context/AuthContext'
@@ -25,7 +25,18 @@ const LoginPage = () => {
     e.preventDefault()
     setIsLoading(true) 
     try {
-      
+      const response = await axiosInstance.post(API_PATH.AUTH.LOGIN, formData)
+      const {token}=response.data;
+
+      //Fetch profile to get the user details
+      const profileResponse = await axiosInstance.get(API_PATH.AUTH.GET_PROFILE, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      login(profileResponse.data, token)
+      toast.success('Login successful!')
+      navigate('/dashboard/')
     } catch (error) {
       localStorage.clear()
       console.error(error.respinse?.data?.message || 'Something went wrong. Please try again.')

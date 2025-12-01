@@ -13,7 +13,7 @@ export const useAuth=()=>{
 export const AuthProvider=({children})=>{
     const [user, setUser]=useState(null);
     const [loading, setLoading]=useState(true);
-    const [isauthenticated,setIsAuthenticated]=useState(false);
+    const [isAuthenticated,setIsAuthenticated]=useState(false);
 
     useEffect(()=>{
         checkAuthStatus();
@@ -61,7 +61,7 @@ export const AuthProvider=({children})=>{
     const value={
         user,
         loading,
-        isauthenticated,
+        isAuthenticated,
         login,
         logout,
         updateUser
