@@ -30,8 +30,9 @@ const getBooks=async(req,res)=>{
         const books=await Book.find({userId:req.user._id}).sort({createdAt:-1});
         
         if(!books || books.length === 0){
-            return res.status(404).json({
-                success:false,
+            return res.status(200).json({
+                success:true,
+                data:[],
                 message:"No books found"
             })
         }

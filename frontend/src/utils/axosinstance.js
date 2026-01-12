@@ -28,12 +28,13 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error)=>{
-        if(error.response.status===500){
+        if(error.response?.status===401){
+            localStorage.clear();
+            window.location.href='/login';
+        }else if(error.response?.status===500){
            console.log("Internal Server Error");
-        }else if(error.response.code === "ECONNABORTED"){
+        }else if(error.response?.code === "ECONNABORTED"){
             console.log("Request timed out");
-        }else if(error.response.status===401){
-            console.log("Unauthorized");
         }
         return Promise.reject(error);
     }
