@@ -9,6 +9,7 @@ import Button from '../components/ui/Button'
 import axiosInstance from '../utils/axosinstance'
 import {API_PATH} from '../utils/apiPaths'
 import BookCard from '../components/cards/BookCard'
+import CreateBookModals from '../components/modals/CreateBookModals'
 const BookCardSkeleton = () => {
   return (
     <div className='animate-pulse border border-slate-200 rounded-lg shadow-sm'>
@@ -20,6 +21,28 @@ const BookCardSkeleton = () => {
     </div>
   )
 }
+
+const ConfirmationModal=({isOpen, onClose, onConfirm, title, message})=>{
+  if(!isOpen) return null;
+  return (
+    <div className='fixed inset-0 z-50 overflow-x-auto'>
+      <div className='flex items-center justify-center min-h-screen px-4 text-center'>
+        <div className='fixed inset-0 bg-black/50 bg-opacity-25 transition-opacity' onClick={onClose}></div>
+        <div className='bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative'>
+          <h3 className='text-lg font-semibold text-slate-900 mb-4'>
+            {title}
+          </h3>
+          <p className='text-slate-600 mb-6'>{message}</p>
+          <div className='flex justify-end space-x-3'>
+            <Button variant="secondary" onClick={onClose}>Cancel</Button>
+            <Button onClick={onConfirm} className='bg-red-600 text-white hover:bg-red-700'>Confirm</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const DashboardPage = () => {
   const [books,setBooks]=useState([])
   const [isLoading,setIsLoading]=useState(false)
@@ -50,12 +73,22 @@ const DashboardPage = () => {
     fetchBooks();
   }, [])
   
-  const handleDeleteBook = async (bookId) => {
+  const handleDeleteBook = async () => {
     if(!bookToDelete) return;
+    try{
+      await axiosInstance.delete(`${API_PATH.BOOKS.DELETE_ID}/${bookToDelete._id}`);
+      setBooks(books.filter((book)=>book._id !== bookToDelete._id));
+      toast.success('eBook deleted successfully');
+    }catch(error){
+      toast.error(error.response?.data?.message || 'Failed to delete eBook. Please try again.');
+    }finally{
+      setBookToDelete(null);
+
+    }
   }
 
   const handleCreateBookClick=()=>{
-    navigate('/editor')
+    setIsCreateModelOpen(true)
   }
 
   const handleBookCreated=(bookId)=>{
@@ -107,6 +140,18 @@ const DashboardPage = () => {
             ))}
           </div>
         )}
+        <ConfirmationModal 
+          isOpen={!!bookToDelete}
+          onClose={()=>setBookToDelete(null)}
+          onConfirm={handleDeleteBook}
+          title="Delete eBook"
+          message="Are you sure you want to delete this eBook? This action cannot be undone."
+        />
+        <CreateBookModals
+          isOpen={isCreateModelOpen}
+          onClose={()=>setIsCreateModelOpen(false)}
+          onBookCreated={handleBookCreated}
+        />
       </div>
     </DashboardLayout>
   )
