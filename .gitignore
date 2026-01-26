@@ -1,5 +1,5 @@
 # ignore env files
 backend/.env
 
-# ignore node modules
+# ignore node
 backend/node_modules/
