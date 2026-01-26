@@ -54,7 +54,7 @@ const CreateBookModals = ({isOpen, onClose, onBookCreated}) => {
         style: aiStyle,
         numChapters: numChapters
       })
-      setChapters(response.data.chapters);
+      setChapters(response.data.outline);
       setStep(2);
       toast.success("Outline generated successfully. Review and edit chapters.");
     } catch (error) {
@@ -233,7 +233,7 @@ const CreateBookModals = ({isOpen, onClose, onBookCreated}) => {
                       <Trash2 className="w-4 h-4 text-red-500" />
                     </button>
                   </div>
-                  <Textarea
+                  <textarea
                     value={chapter.description}
                     onChange={(e) =>
                       handleChapterChange(index, "description", e.target.value)
@@ -241,7 +241,7 @@ const CreateBookModals = ({isOpen, onClose, onBookCreated}) => {
                     placeholder="Brief description of what these chapter will cover..."
                     rows={2}
                     className="w-full pl-9 text-sm text-gray-600 bg-transparent border-none focus:outline-none focus:ring-0 resize-none placeholder-gray-400"
-                  ></Textarea>
+                  ></textarea>
                 </div>
               ))
             )}
