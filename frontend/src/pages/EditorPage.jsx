@@ -8,19 +8,20 @@ import {
   Menu,
   X,
   Edit,
-  NoteBookText,
+  NotebookText,
   ChevronDown,
-  FileText
-} from 'lucide-react'
+  FileText,
+} from "lucide-react";
+
 
 import {arrayMove} from '@dnd-kit/sortable'
-import axiosInstance from '../utils/axiosInstance'
-import {API_PATHS} from '../utils/apiPaths'
-import Dropdown, {DropdownItem} from '../components/ui/DropDown'
+import axiosInstance from '../utils/axosinstance'
+import { API_PATH } from "../utils/apiPaths";
+import Dropdown, {DropDownItem} from '../components/ui/DropDown'
 import InputField from '../components/ui/InputField'
 import Button from '../components/ui/Button'
 import Modal from '../components/ui/Modal'
-import SelectField from '../components/ui/SelectField'
+import SelectField from '../components/ui/SelectedField'
 
 const EditorPage = () => {
   const {bookId} = useParams()
@@ -42,7 +43,7 @@ const EditorPage = () => {
     const feetchBook = async () =>{
       try {
         const response = await axiosInstance.get(
-          `${API_PATHS.BOOKS.GET_BOOK_BY_ID}/${bookId}`
+          `${API_PATH.BOOKS.GET_BOOK_BY_ID}/${bookId}`
         )
         setBook(response.data);
       } catch (error) {
