@@ -4,7 +4,8 @@ const Book=require("../models/Book");
 const createBook=async(req,res)=>{
 
     try {
-        const {title,author,subTitle,chapter}=req.body;
+        const {title,author,subTitle,chapter,chapters} = req.body;
+        const bookChapters = chapter || chapters || [];
 
         if(!title || !author){
             return res.status(400).json({success:false,message:"Title and Author are required"});
@@ -15,7 +16,7 @@ const createBook=async(req,res)=>{
             title,
             author,
             subTitle,
-            chapter
+            chapter: bookChapters
         })
         res.status(201).json({success:true,data:book,message:"Book created successfully"});
     } catch (error) {

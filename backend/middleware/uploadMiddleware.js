@@ -1,21 +1,21 @@
 const multer = require('multer');
 const path = require('path');
-const fs=require('fs');
+const fs = require('fs');
 
 // create the upload directory if it doesn't exist
-const uploadDir="uploads";
-if(!fs.existsSync(uploadDir)){
-    fs.mkdirSync(uploadDir,{recursive:true});
+const uploadDir = path.join(__dirname, "..", "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
 }
 
 // Set up storage engine
-const storage=multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,uploadDir);
-    },
-    filename:function(req,file,cb){
-        cb(null,`${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-    }
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+  },
 });
 
 //initialize upload with error handling

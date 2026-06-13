@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react"
 const DropDown = ({trigger, children}) => {
-  const {isOpen, setIsOpen}=useState(false)
+  const [isOpen, setIsOpen]=useState(false)
   const dropDownRef= useRef(null)
 
   useEffect(()=>{

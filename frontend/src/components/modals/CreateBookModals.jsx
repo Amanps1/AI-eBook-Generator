@@ -17,7 +17,7 @@ import axiosInstance from '../../utils/axosinstance'
 import {API_PATH} from '../../utils/apiPaths'
 import toast from "react-hot-toast";
 import {useAuth} from "../../context/AuthContext";
-import axios from 'axios';
+
 const CreateBookModals = ({isOpen, onClose, onBookCreated}) => {
   const {user}=useAuth();
   const [step, setStep]=useState(1);
@@ -90,10 +90,10 @@ const CreateBookModals = ({isOpen, onClose, onBookCreated}) => {
       const response=await axiosInstance.post(API_PATH.BOOKS.CREATE_BOOK, {
         title: bookTitle,
         author: user.name || "Unknown Author",
-        chapters: chapters
+        chapter: chapters
       })
       toast.success("eBook created successfully.");
-      onBookCreated(response.data._id);
+      onBookCreated(response.data.data._id);
       onClose();
       resetModal();
     } catch (error) {
@@ -221,9 +221,9 @@ const CreateBookModals = ({isOpen, onClose, onBookCreated}) => {
                     <input
                       type="text"
                       value={chapter.title}
-                      onChange={(e) => handleChapterChange()}
+                      onChange={(e) => handleChapterChange(index, "title", e.target.value)}
                       placeholder="Chapter Title"
-                      className="flex-1 text-base font-medium text-gray-900 bg-tranparent border-none focus:outline-none focus:ring-0 p-0"
+                      className="flex-1 text-base font-medium text-gray-900 bg-transparent border-none focus:outline-none focus:ring-0 p-0"
                     ></input>
                     <button
                       onClick={() => handleDeleteChapter(index)}

@@ -9,6 +9,7 @@ const {
 } = require("docx");
 const Book = require("../models/Book");
 const fs = require("fs");
+const path = require("path");
 const markdownIt = require("markdown-it");
 const PDFDocument = require("pdfkit");
 
@@ -331,9 +332,13 @@ const exportAsDocument = async (req, res) => {
 
     // COVER IMAGE
     if (book.coverImage && !book.coverImage.includes("pravatar")) {
-      const imagePath = book.coverImage.startsWith("/")
-        ? book.coverImage.substring(1)
-        : book.coverImage;
+      const imagePath = path.join(
+        __dirname,
+        "..",
+        book.coverImage.startsWith("/")
+          ? book.coverImage.substring(1)
+          : book.coverImage,
+      );
       if (fs.existsSync(imagePath)) {
         const imageBuffer = fs.readFileSync(imagePath);
         sections.push(
@@ -753,7 +758,13 @@ const exportAsPDF = async (req, res) => {
 
     // --- Cover image ---
     if (book.coverImage && !book.coverImage.includes("pravatar")) {
-      const imagePath = book.coverImage.substring(1);
+      const imagePath = path.join(
+        __dirname,
+        "..",
+        book.coverImage.startsWith("/")
+          ? book.coverImage.substring(1)
+          : book.coverImage,
+      );
       try {
         if (fs.existsSync(imagePath)) {
           const pageWidth =

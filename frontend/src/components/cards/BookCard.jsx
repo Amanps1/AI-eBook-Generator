@@ -32,7 +32,7 @@ const BookCard = ({book, onDelete}) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onDelete(book._id);
+              onDelete(book);
             }}
             className="ml-4 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-red-50 transition-colors duration-200 cursor-pointer"
           >
